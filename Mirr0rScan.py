@@ -21,11 +21,13 @@ PROXIES = {
     "https": "socks5h://127.0.0.1:1080"
 }
 
+
 def discover_payloads (file : str, key) -> dict:
     with open(file, "r", encoding="utf-8") as f:
         data = json.load(f)
 
     return data[key]
+
 
 parser = argparse.ArgumentParser(description='Mirr0rScan - A powerful scanner to discover Starting Points for vulnerabilities')
 
@@ -48,6 +50,7 @@ configue_group.add_argument('-he', '--heavy', help='If enabled, it re-fuzzes all
 
 # --- Vulnerabilities --- 
 vulnerabilities_group = parser.add_argument_group('Vulnerabilities')
+vulnerabilities_group.add_argument('-p', '--passive', help='Enable passive leak detection (emails, tokens, sensitive headers)', action='store_true', default=False)
 vulnerabilities_group.add_argument('-sqli','--sqlinjection',help='Try to SQLinjection (\',",`) ', action='store_true', default=False)
 vulnerabilities_group.add_argument('-bsqli','--blindsqlinjection',help='Try to Blind SQLinjection for Change Payloads Check \'blind_payloads.json\'', action='store_true' , required = False)
 
@@ -94,6 +97,7 @@ heavy = args.heavy
 
 
 # --- Vulnerabilities --- 
+passive = args.passive
 sqli = args.sqlinjection
 bsqli = args.blindsqlinjection
 bsqlis = discover_payloads('blind_payloads.json', "Blind_SQLi") if bsqli else {}
@@ -129,6 +133,7 @@ def show_banner():
     print(banner + twitter_centered + version_right + "\n")
 
 
+
 def sendmessage(message: str, telegram: bool = False, colour: str = "YELLOW", logger: str = "logger.txt",
                 silent: bool = False):
     color = getattr(colorama.Fore, colour, colorama.Fore.YELLOW)
@@ -159,6 +164,7 @@ def sendmessage(message: str, telegram: bool = False, colour: str = "YELLOW", lo
                     file.write(f"[ERROR] Telegram message failed: {e}\n")
             except Exception:
                 pass
+
 
 
 
@@ -194,6 +200,7 @@ async def read_write_list(list_data, file: str, type: str):
             return
     except Exception:
         return []
+
 
 
 
@@ -235,10 +242,11 @@ async def run_headless_scan(target_url, method="GET", search_word="nexovir", pro
         return {"success": False, "url": target_url, "error": str(e)}
 
 
+
 async def run_fallparams(url, proxy, thread, delay, method, headers):
     sendmessage(f"  [INFO] Starting parameter discovery and check reflection (method: {method}) {url}", colour="YELLOW", logger=logger, silent=silent)
     def _run():
-        command = ["fallparams", "-u", url, "-x", proxy if proxy else '', "-X", method, '-silent', '-duc']
+        command = ["fallparams", "-u", url, "-x", proxy if proxy else '', "-X", 'GET POSt', '-silent', '-duc']
         for key, value in headers.items():
             command.extend(["-H", f"{key}: {value}"])
         result = subprocess.run(command, shell=False, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -252,17 +260,22 @@ async def run_fallparams(url, proxy, thread, delay, method, headers):
         return []
 
 
+
 async def discover_parameters(urls, proxy, thread, delay, methods):
     sendmessage(f"[INFO] Starting Discover Hidden Parameters (method : {methods}) ...", colour="YELLOW", logger=logger, silent=silent)
+    await run_fallparams(url, proxy, thread, delay, method, headers)
+    
     for url in urls:
-        if dom:
-            await explore_dom_sinks(url, proxy, thread, delay, headers, 'GET')
+        if passive:
+            print('passive')
+
         for method in methods:
             parameters = await run_fallparams(url, proxy, thread, delay, method, headers)
             if not parameters:
                 continue
             await read_write_list(parameters, params_output, 'a')
             await run_x8(url, parameters, proxy, thread, delay, method, headers, chunk, parameter)
+
 
 
 async def main():

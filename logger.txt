@@ -1,0 +1,16 @@
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:43:10
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:43:10
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:43:59
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:43:59
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:44:30
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:44:30
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:44:39
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:44:39
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:44:48
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:44:48
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 17:48:27
+[ERROR] An error occurred: name 'dom' is not defined -> 28/09/2025, 17:48:27
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 18:47:29
+[ERROR] An error occurred: cannot access local variable 'url' where it is not associated with a value -> 28/09/2025, 18:47:29
+[INFO] Starting Discover Hidden Parameters (method : ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']) ... -> 28/09/2025, 18:47:43
+[ERROR] An error occurred: cannot access local variable 'url' where it is not associated with a value -> 28/09/2025, 18:47:43
